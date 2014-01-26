@@ -2,7 +2,7 @@ class Flickr
   FLICKR_API_URL_BASE = 'http://api.flickr.com/services/rest'
   FLICKR_API_KEY      = '3c86aea4c40d6f0248bc5f223601811b'
 
-  constructor: (@photosetId) ->
+  constructor: (@photosetId, @photosetTitle) ->
 
   photos: ->
     deferred = $.Deferred()
@@ -12,17 +12,17 @@ class Flickr
       method:      'flickr.photosets.getPhotos'
       photoset_id: @photosetId
       format:      'json'
+      nojsoncallback: 1
 
     $.ajax
       url: FLICKR_API_URL_BASE,
       data: data
-      dataType: 'jsonp'
-      jsonpCallback: 'jsonFlickrApi'
+      jsonpCallback: "jsonFlickrApi#{@photosetId}"
       success: (data) ->
         photoArr = $.map data.photoset.photo, (photo) ->
           return new FlickrPhoto(photo)
 
-        deferred.resolve(photoArr)
+        deferred.resolve(photoArr, setTitle)
       error: (e) ->
         deferred.reject(e)
 
@@ -45,6 +45,6 @@ class FlickrPhoto
     size     ||= 'large'
     sizeSuffix = SIZE_SUFFIX[size]
     baseUrl    = "http://farm#{@photoObj.farm}.staticflickr.com"
-    filename   = "#{@photoObj.id}_#{@photoObj.secret}_#{size}.jpg"
+    filename   = "#{@photoObj.id}_#{@photoObj.secret}_#{sizeSuffix}.jpg"
     urlResult  = [ baseUrl, @photoObj.server, filename ].join('/')
 end

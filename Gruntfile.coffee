@@ -16,9 +16,14 @@ module.exports = (grunt) ->
     copy:
       fonts:
         expand: true
+        flatten: true
         src: 'app/lib/font-awesome/fonts/*'
         dest: 'public/assets/fonts/'
+      fancybox:
+        expand: true
         flatten: true
+        src: [ 'app/lib/fancybox/source/*.gif', 'app/lib/fancybox/source/*.png' ]
+        dest: 'public/assets/css/'
     exec:
       node: 'node app/index.js'
     deploy:

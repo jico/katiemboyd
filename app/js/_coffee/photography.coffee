@@ -3,10 +3,20 @@ FLICKR_PHOTOGRAPHY_SETS =
   places:   '72157640162925564'
   projects: '72157640160957355'
 
-FLICKR_PHOTOSET_CACHE = {}
-
 for setTitle, setId of FLICKR_PHOTOGRAPHY_SETS
-  FLICKR_PHOTOSET_CACHE[setTitle] = new Flickr(setId)
+  do (setTitle) ->
+    flickr = new Flickr(setId, setTitle)
+    container = $("[data-flickr-set=#{setTitle}]")
 
-FLICKR_PHOTOSET_CACHE.people.photos().done (data) ->
-  console.log data
+    flickr.photos().done (photos) ->
+      for photo in photos
+        thumb = $('<img>').attr('src', photo.url('small'))
+        anchor = $('<a>').attr({
+          class: 'fancybox'
+          rel:   setTitle
+          href:  photo.url('large')
+        }).append(thumb)
+        container.append(anchor)
+
+      # TODO: Call this only once
+      $('.fancybox').fancybox()

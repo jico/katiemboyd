@@ -15,3 +15,33 @@ ul.navigation {
 ul.navigation a {
   font-family: @altFontFamily;
 }
+
+
+@media @mobileAll {
+  .mast {
+    text-align: center;
+  }
+
+  ul.navigation {
+    width: 100%;
+
+    > li {
+      text-align: center;
+      width: 25%;
+    }
+  }
+}
+
+@media @mobile {
+  #header {
+    margin-top: 10px;
+  }
+
+  .mast {
+    margin-bottom: 0;
+  }
+
+  ul.navigation > li {
+    width: 100%;
+  }
+}

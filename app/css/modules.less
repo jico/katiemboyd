@@ -28,6 +28,7 @@ li.dropdown {
 }
 
 li.dropdown > ul {
+  background: #fff;
   display: none;
   margin: 0;
   padding: 0;
@@ -47,4 +48,19 @@ li.dropdown > ul {
 
 li.dropdown:hover > ul {
   display: block;
+}
+
+@media @mobile {
+  li.dropdown {
+    border-left: 2px solid #ddd;
+  }
+
+  li.dropdown > ul {
+    display: block;
+    position: relative;
+  }
+
+  li.dropdown > ul li {
+    width: 100%;
+  }
 }

@@ -12,15 +12,14 @@ ul.navigation {
   float: right;
   list-style: none;
   margin: 15px 0 0;
-  overflow: hidden;
   padding: 0;
 
-  li {
+  > li {
     float: left;
     text-align: right;
   }
 
-  li a {
+  > li a {
     display: block;
     color: @gray;
     padding: 10px;
@@ -31,4 +30,30 @@ ul.navigation {
       color: @grayDark;
     }
   }
+}
+
+li.dropdown {
+  position: relative;
+}
+
+li.dropdown > ul {
+  display: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+
+  > li {
+    margin: 0;
+    width: 100%;
+  }
+
+  > li a {
+    padding: 5px;
+    text-align: center;
+  }
+}
+
+li.dropdown:hover > ul {
+  display: block;
 }

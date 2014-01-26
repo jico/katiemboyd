@@ -1,0 +1,21 @@
+#ux-work h4 {
+  text-align: center;
+}
+
+.project-cover {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  height: 300px;
+  margin: 0 auto;
+  width: 300px;
+
+  &[data-flickr-set=want] {
+    background-image: url("/assets/images/want.png");
+  }
+
+  &[data-flickr-set=hitlist] {
+    background-image: url("/assets/images/hitlist.png");
+  }
+}

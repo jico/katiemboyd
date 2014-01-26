@@ -20,7 +20,7 @@ views =
   index:       'about'
   photography: 'photography'
   process:     'process'
-
+  work:        'ux_work'
 
 
 for view, _yield of views

@@ -1,5 +1,5 @@
 (function() {
-  var FANCYBOX_OPTIONS, FLICKR_PHOTOGRAPHY_SETS, FLICKR_PHOTOSET_CACHE, Flickr, FlickrPhoto, setId, setTitle, _fn;
+  var FANCYBOX_OPTIONS, FLICKR_PHOTOGRAPHY_SETS, FLICKR_PHOTOSET_CACHE, FLICKR_UX_CACHE, FLICKR_UX_SETS, Flickr, FlickrPhoto, setId, setTitle, _fn, _fn1;
 
   Flickr = (function() {
     var FLICKR_API_KEY, FLICKR_API_URL_BASE;
@@ -118,6 +118,46 @@
   for (setTitle in FLICKR_PHOTOGRAPHY_SETS) {
     setId = FLICKR_PHOTOGRAPHY_SETS[setTitle];
     _fn(setTitle);
+  }
+
+  FLICKR_UX_SETS = {
+    want: '72157640173647766',
+    hitlist: '72157640181141545'
+  };
+
+  FLICKR_UX_CACHE = {};
+
+  FANCYBOX_OPTIONS = {
+    helpers: {
+      overlay: {
+        css: {
+          background: 'rgba(255,255,255,0.85)'
+        }
+      }
+    }
+  };
+
+  $('#ux-work').on('click', '.project-cover', function() {
+    var flickrSet, photos;
+    flickrSet = $(this).data('flickr-set');
+    photos = FLICKR_UX_CACHE[flickrSet];
+    return $.fancybox(photos, FANCYBOX_OPTIONS);
+  });
+
+  _fn1 = function(setTitle) {
+    var container, cover, flickr;
+    flickr = new Flickr(setId, setTitle);
+    container = $(".project-container[data-flickr-set=" + setTitle + "]");
+    cover = $(".project-cover[data-flickr-set=" + setTitle + "]");
+    return flickr.photos().done(function(photos) {
+      return FLICKR_UX_CACHE[setTitle] = $.map(photos, function(photo) {
+        return photo.url('large');
+      });
+    });
+  };
+  for (setTitle in FLICKR_UX_SETS) {
+    setId = FLICKR_UX_SETS[setTitle];
+    _fn1(setTitle);
   }
 
 }).call(this);

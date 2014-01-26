@@ -25,7 +25,8 @@
   views = {
     index: 'about',
     photography: 'photography',
-    process: 'process'
+    process: 'process',
+    work: 'ux_work'
   };
 
   for (view in views) {

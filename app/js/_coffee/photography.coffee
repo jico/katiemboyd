@@ -13,14 +13,14 @@ FANCYBOX_OPTIONS =
 
 $('#photography').on 'click', '.gallery-cover', ->
   flickrSet = $(@).data('flickr-set')
-  photos = FLICKR_PHOTOSET_CACHE[flickrSet]
+  photos    = FLICKR_PHOTOSET_CACHE[flickrSet]
   $.fancybox(photos, FANCYBOX_OPTIONS)
 
 for setTitle, setId of FLICKR_PHOTOGRAPHY_SETS
   do (setTitle) ->
-    flickr = new Flickr(setId, setTitle)
+    flickr    = new Flickr(setId, setTitle)
     container = $(".gallery-container[data-flickr-set=#{setTitle}]")
-    cover = $(".gallery-cover[data-flickr-set=#{setTitle}]")
+    cover     = $(".gallery-cover[data-flickr-set=#{setTitle}]")
 
     flickr.photos().done (photos) ->
       cover.css('background-image', "url(#{photos[0].url('medium')})")

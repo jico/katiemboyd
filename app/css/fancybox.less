@@ -21,7 +21,13 @@
   width: 40px;
 
   span {
+    transition: opacity 300ms;
+    opacity: 0.5;
     visibility: visible;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 

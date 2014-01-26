@@ -9,6 +9,10 @@ footer {
 
 .copyright {
   margin-top: 10px;
+
+  @media @mobileAll {
+    display: none;
+  }
 }
 
 ul.social li a {
@@ -21,5 +25,17 @@ ul.social li a {
 
   &:hover {
     color: rgb(101, 190, 212);
+  }
+}
+
+@media @mobileAll {
+  ul.social {
+    margin-top: 10px;
+    width: 100%;
+
+    li {
+      text-align: center;
+      width: 20%;
+    }
   }
 }

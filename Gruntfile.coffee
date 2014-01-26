@@ -11,6 +11,12 @@ module.exports = (grunt) ->
         files:
           'app/index.js':    'app/index.coffee'
           'app/js/build.js': 'app/js/_coffee/*.coffee'
+    copy:
+      fonts:
+        expand: true
+        src: 'app/lib/font-awesome/fonts/*'
+        dest: 'public/assets/fonts/'
+        flatten: true
     exec:
       node: 'node app/index.js'
     deploy:
@@ -55,6 +61,7 @@ module.exports = (grunt) ->
   # Load task dependencies
 
   grunt.loadNpmTasks('grunt-contrib-coffee')
+  grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-contrib-less')
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-watch')
@@ -85,5 +92,5 @@ module.exports = (grunt) ->
 
   # Register tasks
 
-  grunt.registerTask('default', [ 'coffee', 'exec:node', 'uglify', 'less' ])
-  grunt.registerTask('assets',  [ 'uglify', 'less' ])
+  grunt.registerTask('default', [ 'coffee', 'exec:node', 'uglify', 'less', 'copy' ])
+  grunt.registerTask('assets',  [ 'uglify', 'less', 'copy' ])

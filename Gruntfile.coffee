@@ -17,7 +17,11 @@ module.exports = (grunt) ->
       default:
         user: 'deploy'
         host: '***REMOVED***'
-        path: '***REMOVED***public/'
+        path: '***REMOVED***'
+      staging:
+        user: 'deploy'
+        host: '***REMOVED***'
+        path: '***REMOVED***'
     less:
       production:
         options:

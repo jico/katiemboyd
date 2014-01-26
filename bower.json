@@ -1,5 +1,7 @@
 {
   "name": "katiemboyd.com",
   "version": "0.0.1",
-  "dependencies": {}
+  "dependencies": {
+    "ribs": "~1.0.11"
+  }
 }

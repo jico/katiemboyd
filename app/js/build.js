@@ -1,5 +1,5 @@
 (function() {
-  var FANCYBOX_OPTIONS, FLICKR_PHOTOGRAPHY_SETS, FLICKR_PHOTOSET_CACHE, FLICKR_UX_CACHE, FLICKR_UX_SETS, Flickr, FlickrPhoto, setId, setOptions, setTitle, _fn, _fn1;
+  var FANCYBOX_OPTIONS, FLICKR_PHOTOGRAPHY_SETS, FLICKR_PHOTOSET_CACHE, FLICKR_UX_CACHE, FLICKR_UX_SETS, Flickr, FlickrPhoto, pathname, setId, setOptions, setTitle, _fn, _fn1;
 
   Flickr = (function() {
     var FLICKR_API_KEY, FLICKR_API_URL_BASE;
@@ -81,6 +81,14 @@
   })();
 
   end;
+
+  pathname = document.location.pathname;
+
+  if (pathname === '/process' || pathname === '/work') {
+    $(".navigation a[href='#']").addClass('active');
+  } else {
+    $(".navigation a[href='" + pathname + "']").addClass('active');
+  }
 
   FLICKR_PHOTOGRAPHY_SETS = {
     people: {

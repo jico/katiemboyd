@@ -19,6 +19,7 @@ locals = _.extend {}, helpers, jadeOptions
 views =
   index:       'about'
   photography: 'photography'
+  process:     'process'
 
 
 

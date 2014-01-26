@@ -40,16 +40,16 @@ module.exports = (grunt) ->
     watch:
       coffee:
         files: [ 'index.coffee', 'js/_coffee/*.coffee' ]
-        tasks: [ 'coffee', 'uglify' ]
+        tasks: [ 'coffee', 'uglify', 'deploy:staging' ]
       assets:
         files: [ 'manifest.json' ]
-        tasks: 'assets'
+        tasks: [ 'assets', 'deploy:staging' ]
       styles:
         files: 'app/css/**/*'
-        tasks: 'less'
+        tasks: [ 'less', 'deploy:staging' ]
       html:
         files: 'app/views/**/*'
-        tasks: 'exec:node'
+        tasks: [ 'exec:node', 'deploy:staging' ]
 
 
   # Load task dependencies

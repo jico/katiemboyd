@@ -1,5 +1,14 @@
 .columns.gallery {
   width: 300px;
+
+  @media @tabletPortraitToDesktop {
+    width: 235px;
+  }
+
+  @media @mobile {
+    margin-bottom: 20px;
+    width: 100%;
+  }
 }
 
 .gallery h4 {
@@ -17,4 +26,14 @@
   cursor: pointer;
   height: 300px;
   width: 300px;
+  margin: 0 auto;
+
+  @media @tabletPortraitToDesktop {
+    height: 235px;
+    width: 235px;
+  }
+
+  @media @mobile {
+    width: 100%;
+  }
 }

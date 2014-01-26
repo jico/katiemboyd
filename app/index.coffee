@@ -17,14 +17,19 @@ locals = _.extend {}, helpers, jadeOptions
 # Views mapped as:
 #   viewFilenameResult: yieldContent
 views =
-  index: 'about'
+  index:       'about'
+  photography: 'photography'
+
+
 
 for view, _yield of views
-  locals.yield = jade.renderFile "app/views/#{_yield}.jade", jadeOptions
-
-  jade.renderFile "app/views/#{view}.jade", locals, (jadeErr, html) ->
+  jade.renderFile "app/views/#{_yield}.jade", jadeOptions, (jadeErr, yieldHtml) ->
     throw jadeErr if jadeErr
+    locals.yield = yieldHtml
 
-    fs.writeFile "public/#{view}.html", html, (fsErr) ->
-      throw fsErr if fsErr
-      console.log "Wrote #{view}.html yielding #{_yield}"
+    jade.renderFile "app/views/index.jade", locals, (jadeErr, html) ->
+      throw jadeErr if jadeErr
+
+      fs.writeFile "public/#{view}.html", html, (fsErr) ->
+        throw fsErr if fsErr
+        console.log "Wrote #{view}.html yielding #{_yield}"

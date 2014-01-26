@@ -1,7 +1,13 @@
 FLICKR_PHOTOGRAPHY_SETS =
-  people:   '72157640153601146'
-  places:   '72157640162925564'
-  projects: '72157640160957355'
+  people:
+    id:      '72157640153601146'
+    caption: false
+  places:
+    id:      '72157640162925564'
+    caption: true
+  projects:
+    id:      '72157640160957355'
+    caption: false
 
 FLICKR_PHOTOSET_CACHE = {}
 
@@ -16,9 +22,9 @@ $('#photography').on 'click', '.gallery-cover', ->
   photos    = FLICKR_PHOTOSET_CACHE[flickrSet]
   $.fancybox(photos, FANCYBOX_OPTIONS)
 
-for setTitle, setId of FLICKR_PHOTOGRAPHY_SETS
-  do (setTitle) ->
-    flickr    = new Flickr(setId, setTitle)
+for setTitle, setOptions of FLICKR_PHOTOGRAPHY_SETS
+  do (setTitle, setOptions) ->
+    flickr    = new Flickr(setOptions.id, setTitle)
     container = $(".gallery-container[data-flickr-set=#{setTitle}]")
     cover     = $(".gallery-cover[data-flickr-set=#{setTitle}]")
 
@@ -26,4 +32,7 @@ for setTitle, setId of FLICKR_PHOTOGRAPHY_SETS
       cover.css('background-image', "url(#{photos[0].url('medium')})")
 
       FLICKR_PHOTOSET_CACHE[setTitle] = $.map photos, (photo) ->
-        return photo.url('large')
+        fancyboxObj = { href: photo.url('large') }
+        if setOptions.caption
+          fancyboxObj.title = photo.title()
+        return fancyboxObj

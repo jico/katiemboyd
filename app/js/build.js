@@ -1,5 +1,5 @@
 (function() {
-  var FANCYBOX_OPTIONS, FLICKR_PHOTOGRAPHY_SETS, FLICKR_PHOTOSET_CACHE, FLICKR_UX_CACHE, FLICKR_UX_SETS, Flickr, FlickrPhoto, setId, setTitle, _fn, _fn1;
+  var FANCYBOX_OPTIONS, FLICKR_PHOTOGRAPHY_SETS, FLICKR_PHOTOSET_CACHE, FLICKR_UX_CACHE, FLICKR_UX_SETS, Flickr, FlickrPhoto, setId, setOptions, setTitle, _fn, _fn1;
 
   Flickr = (function() {
     var FLICKR_API_KEY, FLICKR_API_URL_BASE;
@@ -72,6 +72,10 @@
       return urlResult = [baseUrl, this.photoObj.server, filename].join('/');
     };
 
+    FlickrPhoto.prototype.title = function() {
+      return this.photoObj.title;
+    };
+
     return FlickrPhoto;
 
   })();
@@ -79,9 +83,18 @@
   end;
 
   FLICKR_PHOTOGRAPHY_SETS = {
-    people: '72157640153601146',
-    places: '72157640162925564',
-    projects: '72157640160957355'
+    people: {
+      id: '72157640153601146',
+      caption: false
+    },
+    places: {
+      id: '72157640162925564',
+      caption: true
+    },
+    projects: {
+      id: '72157640160957355',
+      caption: false
+    }
   };
 
   FLICKR_PHOTOSET_CACHE = {};
@@ -103,21 +116,28 @@
     return $.fancybox(photos, FANCYBOX_OPTIONS);
   });
 
-  _fn = function(setTitle) {
+  _fn = function(setTitle, setOptions) {
     var container, cover, flickr;
-    flickr = new Flickr(setId, setTitle);
+    flickr = new Flickr(setOptions.id, setTitle);
     container = $(".gallery-container[data-flickr-set=" + setTitle + "]");
     cover = $(".gallery-cover[data-flickr-set=" + setTitle + "]");
     return flickr.photos().done(function(photos) {
       cover.css('background-image', "url(" + (photos[0].url('medium')) + ")");
       return FLICKR_PHOTOSET_CACHE[setTitle] = $.map(photos, function(photo) {
-        return photo.url('large');
+        var fancyboxObj;
+        fancyboxObj = {
+          href: photo.url('large')
+        };
+        if (setOptions.caption) {
+          fancyboxObj.title = photo.title();
+        }
+        return fancyboxObj;
       });
     });
   };
   for (setTitle in FLICKR_PHOTOGRAPHY_SETS) {
-    setId = FLICKR_PHOTOGRAPHY_SETS[setTitle];
-    _fn(setTitle);
+    setOptions = FLICKR_PHOTOGRAPHY_SETS[setTitle];
+    _fn(setTitle, setOptions);
   }
 
   FLICKR_UX_SETS = {

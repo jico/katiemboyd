@@ -47,4 +47,7 @@ class FlickrPhoto
     baseUrl    = "http://farm#{@photoObj.farm}.staticflickr.com"
     filename   = "#{@photoObj.id}_#{@photoObj.secret}_#{sizeSuffix}.jpg"
     urlResult  = [ baseUrl, @photoObj.server, filename ].join('/')
+
+  title: ->
+    @photoObj.title
 end

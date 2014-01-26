@@ -3,20 +3,27 @@ FLICKR_PHOTOGRAPHY_SETS =
   places:   '72157640162925564'
   projects: '72157640160957355'
 
+FLICKR_PHOTOSET_CACHE = {}
+
+FANCYBOX_OPTIONS =
+  helpers:
+    overlay:
+      css:
+        background: 'rgba(255,255,255,0.85)'
+
+$('#photography').on 'click', '.gallery-cover', ->
+  flickrSet = $(@).data('flickr-set')
+  photos = FLICKR_PHOTOSET_CACHE[flickrSet]
+  $.fancybox(photos, FANCYBOX_OPTIONS)
+
 for setTitle, setId of FLICKR_PHOTOGRAPHY_SETS
   do (setTitle) ->
     flickr = new Flickr(setId, setTitle)
-    container = $("[data-flickr-set=#{setTitle}]")
+    container = $(".gallery-container[data-flickr-set=#{setTitle}]")
+    cover = $(".gallery-cover[data-flickr-set=#{setTitle}]")
 
     flickr.photos().done (photos) ->
-      for photo in photos
-        thumb = $('<img>').attr('src', photo.url('small'))
-        anchor = $('<a>').attr({
-          class: 'fancybox'
-          rel:   setTitle
-          href:  photo.url('large')
-        }).append(thumb)
-        container.append(anchor)
+      cover.css('background-image', "url(#{photos[0].url('medium')})")
 
-      # TODO: Call this only once
-      $('.fancybox').fancybox()
+      FLICKR_PHOTOSET_CACHE[setTitle] = $.map photos, (photo) ->
+        return photo.url('large')

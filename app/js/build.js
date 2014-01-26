@@ -1,5 +1,5 @@
 (function() {
-  var FLICKR_PHOTOGRAPHY_SETS, Flickr, FlickrPhoto, setId, setTitle, _fn;
+  var FANCYBOX_OPTIONS, FLICKR_PHOTOGRAPHY_SETS, FLICKR_PHOTOSET_CACHE, Flickr, FlickrPhoto, setId, setTitle, _fn;
 
   Flickr = (function() {
     var FLICKR_API_KEY, FLICKR_API_URL_BASE;
@@ -84,23 +84,35 @@
     projects: '72157640160957355'
   };
 
-  _fn = function(setTitle) {
-    var container, flickr;
-    flickr = new Flickr(setId, setTitle);
-    container = $("[data-flickr-set=" + setTitle + "]");
-    return flickr.photos().done(function(photos) {
-      var anchor, photo, thumb, _i, _len;
-      for (_i = 0, _len = photos.length; _i < _len; _i++) {
-        photo = photos[_i];
-        thumb = $('<img>').attr('src', photo.url('small'));
-        anchor = $('<a>').attr({
-          "class": 'fancybox',
-          rel: setTitle,
-          href: photo.url('large')
-        }).append(thumb);
-        container.append(anchor);
+  FLICKR_PHOTOSET_CACHE = {};
+
+  FANCYBOX_OPTIONS = {
+    helpers: {
+      overlay: {
+        css: {
+          background: 'rgba(255,255,255,0.85)'
+        }
       }
-      return $('.fancybox').fancybox();
+    }
+  };
+
+  $('#photography').on('click', '.gallery-cover', function() {
+    var flickrSet, photos;
+    flickrSet = $(this).data('flickr-set');
+    photos = FLICKR_PHOTOSET_CACHE[flickrSet];
+    return $.fancybox(photos, FANCYBOX_OPTIONS);
+  });
+
+  _fn = function(setTitle) {
+    var container, cover, flickr;
+    flickr = new Flickr(setId, setTitle);
+    container = $(".gallery-container[data-flickr-set=" + setTitle + "]");
+    cover = $(".gallery-cover[data-flickr-set=" + setTitle + "]");
+    return flickr.photos().done(function(photos) {
+      cover.css('background-image', "url(" + (photos[0].url('medium')) + ")");
+      return FLICKR_PHOTOSET_CACHE[setTitle] = $.map(photos, function(photo) {
+        return photo.url('large');
+      });
     });
   };
   for (setTitle in FLICKR_PHOTOGRAPHY_SETS) {

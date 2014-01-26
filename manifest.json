@@ -1,0 +1,8 @@
+{
+  "js": [
+    "app/js/build.js"
+  ],
+  "css": [
+    "app/css/index.less"
+  ]
+}

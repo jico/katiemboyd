@@ -1,5 +1,6 @@
 {
   "js": [
+    "app/lib/jquery/jquery.js",
     "app/js/build.js"
   ],
   "css": [

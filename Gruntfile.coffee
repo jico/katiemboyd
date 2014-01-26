@@ -8,9 +8,11 @@ module.exports = (grunt) ->
     manifest: grunt.file.readJSON('manifest.json')
     coffee:
       compile:
+        options:
+          join: true
         files:
-          'app/index.js':    'app/index.coffee'
-          'app/js/build.js': 'app/js/_coffee/*.coffee'
+          'app/index.js':      'app/index.coffee'
+          'app/js/build.js':   'app/js/_coffee/*.coffee'
     copy:
       fonts:
         expand: true
@@ -45,7 +47,7 @@ module.exports = (grunt) ->
         dest: 'public/assets/js/app.js'
     watch:
       coffee:
-        files: [ 'index.coffee', 'js/_coffee/*.coffee' ]
+        files: [ 'index.coffee', 'app/js/_coffee/*.coffee' ]
         tasks: [ 'coffee', 'uglify', 'deploy:staging' ]
       assets:
         files: [ 'manifest.json' ]

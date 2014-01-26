@@ -1,5 +1,5 @@
 (function() {
-  var FLICKR_PHOTOGRAPHY_SETS, FLICKR_PHOTOSET_CACHE, Flickr, FlickrPhoto, setId, setTitle;
+  var Flickr, FlickrPhoto;
 
   Flickr = (function() {
     var FLICKR_API_KEY, FLICKR_API_URL_BASE;
@@ -12,7 +12,7 @@
       this.photosetId = photosetId;
     }
 
-    Flickr.prototype.photos = function() {
+    Flickr.prototype.fetchPhotoset = function() {
       var data, deferred;
       deferred = $.Deferred();
       data = {
@@ -37,7 +37,7 @@
           return deferred.reject(e);
         }
       });
-      return deferred.promise();
+      return deferred;
     };
 
     return Flickr;
@@ -76,22 +76,5 @@
   })();
 
   end;
-
-  FLICKR_PHOTOGRAPHY_SETS = {
-    people: '72157640153601146',
-    places: '72157640162925564',
-    projects: '72157640160957355'
-  };
-
-  FLICKR_PHOTOSET_CACHE = {};
-
-  for (setTitle in FLICKR_PHOTOGRAPHY_SETS) {
-    setId = FLICKR_PHOTOGRAPHY_SETS[setTitle];
-    FLICKR_PHOTOSET_CACHE[setTitle] = new Flickr(setId);
-  }
-
-  FLICKR_PHOTOSET_CACHE.people.photos().done(function(data) {
-    return console.log(data);
-  });
 
 }).call(this);

@@ -15,7 +15,7 @@ app
 ### Third-party libraries
 
 Front-end dependencies are managed by [Bower](http://bower.io) and installed
-into `app/lib`. This includes Bootstrap, Galleria, and Stellar.js.
+into `app/lib`.
 
 ### HTML
 
@@ -55,4 +55,4 @@ update files as you develop.
 
 As a static site, deployments are as simple as pushing the public directory up
 to the server. This can be done with a quick `grunt deploy`. To update deploy
-settings, see the `deploy:default` task in the Gruntfile.
+settings, see the `deploy` task in the Gruntfile.

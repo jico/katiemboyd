@@ -1,6 +1,6 @@
 {
   "js": [
-    "app/lib/jquery/src/jquery.js",
+    "app/lib/jquery/dist/jquery.js",
     "app/lib/fancybox/source/jquery.fancybox.js",
     "app/js/build.js"
   ],

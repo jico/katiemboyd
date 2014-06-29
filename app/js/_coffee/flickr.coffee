@@ -1,5 +1,5 @@
 class Flickr
-  FLICKR_API_URL_BASE = 'http://api.flickr.com/services/rest'
+  FLICKR_API_URL_BASE = 'https://api.flickr.com/services/rest'
   FLICKR_API_KEY      = '3c86aea4c40d6f0248bc5f223601811b'
 
   constructor: (@photosetId, @photosetTitle) ->
@@ -44,7 +44,7 @@ class FlickrPhoto
   url: (size) ->
     size     ||= 'large'
     sizeSuffix = SIZE_SUFFIX[size]
-    baseUrl    = "http://farm#{@photoObj.farm}.staticflickr.com"
+    baseUrl    = "https://farm#{@photoObj.farm}.staticflickr.com"
     filename   = "#{@photoObj.id}_#{@photoObj.secret}_#{sizeSuffix}.jpg"
     urlResult  = [ baseUrl, @photoObj.server, filename ].join('/')
 

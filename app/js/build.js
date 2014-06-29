@@ -4,7 +4,7 @@
   Flickr = (function() {
     var FLICKR_API_KEY, FLICKR_API_URL_BASE;
 
-    FLICKR_API_URL_BASE = 'http://api.flickr.com/services/rest';
+    FLICKR_API_URL_BASE = 'https://api.flickr.com/services/rest';
 
     FLICKR_API_KEY = '3c86aea4c40d6f0248bc5f223601811b';
 
@@ -67,7 +67,7 @@
       var baseUrl, filename, sizeSuffix, urlResult;
       size || (size = 'large');
       sizeSuffix = SIZE_SUFFIX[size];
-      baseUrl = "http://farm" + this.photoObj.farm + ".staticflickr.com";
+      baseUrl = "https://farm" + this.photoObj.farm + ".staticflickr.com";
       filename = "" + this.photoObj.id + "_" + this.photoObj.secret + "_" + sizeSuffix + ".jpg";
       return urlResult = [baseUrl, this.photoObj.server, filename].join('/');
     };

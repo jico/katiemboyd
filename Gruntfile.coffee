@@ -26,15 +26,6 @@ module.exports = (grunt) ->
         dest: 'public/assets/css/'
     exec:
       node: 'node app/index.js'
-    deploy:
-      default:
-        user: 'deploy'
-        host: '***REMOVED***'
-        path: '***REMOVED***'
-      staging:
-        user: 'deploy'
-        host: '***REMOVED***'
-        path: '***REMOVED***'
     less:
       production:
         options:
@@ -84,18 +75,6 @@ module.exports = (grunt) ->
         throw err                if err?
         grunt.log.error stderr   if stderr?
         grunt.log.writeln stdout if stdout?
-
-  grunt.registerMultiTask 'deploy', 'deploy via rsync', ->
-    rsync = 'rsync --delete --progress --exclude=".*" -av -e ssh'
-    src   = './'
-    dest  = "#{@data.user}@#{@data.host}:#{@data.path}"
-
-    command = "#{rsync} #{src} #{dest}"
-
-    exec command, (err, stdout, stderr) ->
-      throw err                if err?
-      grunt.log.error stderr   if stderr?
-      grunt.log.writeln stdout if stdout?
 
   # Register tasks
 

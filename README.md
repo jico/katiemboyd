@@ -50,9 +50,3 @@ which is then included last in the manifest.
 
 Run `grunt` to recompile the entire site. Or, run `grunt watch` to automatically
 update files as you develop.
-
-## Deploying
-
-As a static site, deployments are as simple as pushing the public directory up
-to the server. This can be done with a quick `grunt deploy`. To update deploy
-settings, see the `deploy` task in the Gruntfile.
